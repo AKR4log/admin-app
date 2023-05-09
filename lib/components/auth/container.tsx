@@ -1,18 +1,16 @@
 "use client";
 
 import { useActions } from "@/lib/hooks/useActions";
-import { useTypedSelector } from "@/lib/hooks/useTypedSelector";
 import { GeneralService } from "@/lib/services/serivces";
 import { IAuthUser } from "@/lib/types/auth.interface";
 import { useState } from "react";
 import AuthUserContainer from "./user/container";
 
-const AuthContainer = () => {
+const AuthContainer = ({ isAuthUser }: { isAuthUser: any }) => {
   const [auth, setAuth] = useState();
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const { authUser } = useActions();
-  const user = useTypedSelector((state) => state.auth.auth);
 
   const AuthClick = async (password: string, email: string) => {
     (await GeneralService.login(password, email).then((err: any) => {
@@ -27,7 +25,7 @@ const AuthContainer = () => {
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center sm:mx-auto border rounded-md my-auto mt-16 px-5 py-2 sm:max-w-sm">
-        {user.length !== 0 ? (
+        {isAuthUser !== null ? (
           <AuthUserContainer />
         ) : (
           <>
