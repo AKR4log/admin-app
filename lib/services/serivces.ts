@@ -27,7 +27,7 @@ export const GeneralService = {
   async upload(query: string, formData: FormData, token: string) {
     try {
       const upload = axios.create({
-        baseURL: "http://localhost:4200/v1",
+        baseURL: "https://api.ookat.kg/v1",
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,
