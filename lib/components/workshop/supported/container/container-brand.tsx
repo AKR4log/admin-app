@@ -1,6 +1,5 @@
 "use client";
 
-import { useTypedSelector } from "@/lib/hooks/useTypedSelector";
 import { BrandService, GeneralService } from "@/lib/services/serivces";
 import { IUpload } from "@/lib/types/upload.interface";
 import { PhotoIcon } from "@heroicons/react/24/outline";
@@ -11,7 +10,6 @@ import InputDefault from "../input/default";
 import ContainerDefault from "./container-default";
 
 const ContainerBrand = () => {
-  const user = useTypedSelector((state) => state.auth.auth);
   const inputFileRef = React.useRef<HTMLInputElement | null>(null);
   const [url, setUrl] = React.useState("");
   const [name, setName] = React.useState("");
@@ -25,11 +23,9 @@ const ContainerBrand = () => {
     Object.values(inputFileRef.current.files).forEach((file) => {
       formData.append("image", file);
     });
-    await GeneralService.upload(
-      "brands",
-      formData,
-      user[0]["accessToken"]
-    ).then((req: IUpload) => setUrl(req.url));
+    await GeneralService.upload("brands", formData, "general").then(
+      (req: IUpload) => setUrl(req.url)
+    );
   };
 
   const create = async () => {
@@ -88,7 +84,7 @@ const ContainerBrand = () => {
         )}
         <div className="mt-4 flex items-center justify-end gap-x-6">
           <Link
-            href={'/main/brands'} 
+            href={"/main/brands"}
             className="text-sm font-semibold leading-6 text-gray-900"
           >
             Отменить

@@ -1,6 +1,5 @@
 "use client";
 
-import { useTypedSelector } from "@/lib/hooks/useTypedSelector";
 import { CategoryService, GeneralService } from "@/lib/services/serivces";
 import { IUpload } from "@/lib/types/upload.interface";
 import { PhotoIcon } from "@heroicons/react/24/outline";
@@ -11,7 +10,6 @@ import InputDefault from "../input/default";
 import ContainerDefault from "./container-default";
 
 const ContainerCategory = () => {
-  const user = useTypedSelector((state) => state.auth.auth);
   const inputFileRef = React.useRef<HTMLInputElement | null>(null);
   const [url, setUrl] = React.useState("");
   const [name, setName] = React.useState("");
@@ -28,7 +26,7 @@ const ContainerCategory = () => {
     await GeneralService.upload(
       "category",
       formData,
-      user[0]["accessToken"]
+      "general"
     ).then((req: IUpload) => setUrl(req.url));
   };
 
