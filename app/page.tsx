@@ -1,3 +1,5 @@
+"use client";
+
 import { useTypedSelector } from "@/lib/hooks/useTypedSelector";
 import LoginPage from "@/pages/login/page";
 import { Main } from "next/document";
