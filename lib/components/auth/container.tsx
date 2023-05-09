@@ -1,5 +1,6 @@
 "use client";
 
+import { useActions } from "@/lib/hooks/useActions";
 import { GeneralService } from "@/lib/services/serivces";
 import { IAuthUser } from "@/lib/types/auth.interface";
 import { useState } from "react";
@@ -8,14 +9,14 @@ const AuthContainer = () => {
   const [auth, setAuth] = useState();
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  // const { authUser } = useActions();
-
+  
   const AuthClick = async (password: string, email: string) => {
     (await GeneralService.login(password, email).then((err: any) => {
       if (err.status !== 201) {
         setAuth(err);
       } else {
-        // return authUser(err.data);
+        const { authUser } = useActions();
+        return authUser(err.data);
       }
     })) as IAuthUser;
   };
