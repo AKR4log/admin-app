@@ -11,11 +11,11 @@ const AuthContainer = () => {
   const [email, setEmail] = useState("");
   
   const AuthClick = async (password: string, email: string) => {
+    const { authUser } = useActions();
     (await GeneralService.login(password, email).then((err: any) => {
       if (err.status !== 201) {
         setAuth(err);
       } else {
-        const { authUser } = useActions();
         return authUser(err.data);
       }
     })) as IAuthUser;
